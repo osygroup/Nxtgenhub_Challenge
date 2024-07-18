@@ -9,7 +9,7 @@
 4. [Scaling](#scaling)
 5. [Logging](#logging)
 6. [Monitoring](#monitoring)
-7. [Troubleshooting](#troubleshooting)
+7. [Troubleshooting](#7-troubleshooting)
 
 ### 1. Introduction
 This runbook provides a comprehensive guide for deploying, maintaining, and operating the "Hello, World!" web server on an Azure Kubernetes Service cluster. It includes steps for deployment, scaling, monitoring, and troubleshooting.
