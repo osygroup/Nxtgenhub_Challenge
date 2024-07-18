@@ -3,12 +3,12 @@
 ## Runbook for "Hello, World!" Web Server on Kubernetes (AKS)
 
 ### Table of Contents
-1. [Introduction](#introduction)
-2. [Prerequisites](#prerequisites)
-3. [Deployment](#deployment)
-4. [Scaling](#scaling)
-5. [Logging](#logging)
-6. [Monitoring](#monitoring)
+1. [Introduction](#1-introduction)
+2. [Prerequisites](#2-prerequisites)
+3. [Deployment](#3-deployment)
+4. [Scaling](#4-scaling)
+5. [Logging](#5-logging)
+6. [Monitoring](#6-monitoring)
 7. [Troubleshooting](#7-troubleshooting)
 
 ### 1. Introduction
