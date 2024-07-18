@@ -153,7 +153,8 @@ Update the values.yaml in the hello-world helm chart to create the HPA resource:
    kubectl get hpa -n hello-world
    ```
 
-### 5. Logging (NOTE: This was not configured, but is to be done for production clusters)
+### 5. Logging 
+#### (NOTE: This was not configured, but is to be done for production clusters)
 
 #### Enable Logging
 1. **Deploy EFK Stack (Elasticsearch, Fluentd, Kibana):**
