@@ -148,6 +148,11 @@ Update the values.yaml in the hello-world helm chart to create the HPA resource:
    helm upgrade --install hello-world ./hello-world -n hello-world
    ```
 
+3. **View the HPA resource:**
+   ```sh
+   kubectl get hpa -n hello-world
+   ```
+
 ### 5. Logging (NOTE: This was not configured, but is to be done for production clusters)
 
 #### Enable Logging
