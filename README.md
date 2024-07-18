@@ -222,7 +222,7 @@ Update the values.yaml in the hello-world helm chart to create the HPA resource:
    ```
 
 #### Contact Support
-- If issues persist, contact Kubernetes cluster or cloud provider support.
+- If issues persist, contact the DevOps Team.
 
 ---
 
