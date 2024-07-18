@@ -38,8 +38,6 @@ It can take a minute or two for Azure to provide and link a public IP address to
 3. **Assign a DNS name**
 The external IP that is allocated to the ingress-controller is the IP to which all incoming traffic to the web server should be routed. To enable this, add it to a DNS provider you control, for example as in this case [helloworld.logeesti.co](https://helloworld.logeesti.co).
 
-![Screenshot 2024-07-18 at 16.21.41.png](/.attachments/Screenshot%202024-07-18%20at%2016.21.41-714db98c-d6c1-4f8e-a09e-f6b523d8d057.png)
-
 #### Step 2: Deploy "Hello, World!" Web Server
 1. **Create a namespace 'hello-world' for the "Hello, World!" web server deployment:**
    ```sh
