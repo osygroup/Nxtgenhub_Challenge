@@ -228,9 +228,9 @@ The queries can be used on the Prometheus UI to work on the golden signals and c
    helm install prometheus prometheus-community/prometheus-blackbox-exporter -n monitoring
    ```
 
-2. **Install Alert Manager:** From the root of the repository, install all the manifest files in the kubernetes-alert-manager directory:
+2. **Install Alert Manager:** From the root of the repository, install all the manifest files in the kubernetes-alertmanager directory:
    ```sh
-   kubectl apply -f kubernetes-alert-manager/
+   kubectl apply -f kubernetes-alertmanager/
    ```
    The prometheus.yml in the Prometheus installation is configured to get the health status of the web server via its health endpoint (https://helloworld.logeesti.co/health).
 
