@@ -18,7 +18,7 @@ This runbook provides a comprehensive guide for deploying, maintaining, and oper
 ### 2. Prerequisites
 - Kubernetes cluster up and running.
 - kubectl and Helm installed and configured.
-- Docker Hub access to the web server image.
+- Access to the web server image's registry (if image is in a private registry).
 - Helm charts for Nginx Ingress controller and Cert-manager.
 - Domain Name Service provider for the webserver's url.
 
@@ -262,6 +262,12 @@ Update the values.yaml in the hello-world helm chart to create the HPA resource:
      ```sh
      kubectl describe pod <pod-name>
      ```
+4. **Getting the below message in the Slack Support channel?**
+   ```sh
+   [FIRING:1] Endpoint Down @ https://helloworld.logeestic.co/health
+   This service has been down for more than 5 minutes.
+   ```
+   Check the status of the Web Server pod(s). 
 
 #### Diagnostic Commands
 1. **Check Pod Status:**
@@ -275,13 +281,7 @@ Update the values.yaml in the hello-world helm chart to create the HPA resource:
 3. **Check Services:**
    ```sh
    kubectl get svc
-   ```
-4. Getting the below message in the Slack Support channel?
-   ```sh
-   [FIRING:1] Endpoint Down @ https://helloworld.logeestic.co/health
-   This service has been down for more than 5 minutes.
-   ```
-   Please contact the DevOps Team immediately.  
+   ``` 
 
 
 ---
