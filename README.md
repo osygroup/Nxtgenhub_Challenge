@@ -9,7 +9,8 @@
 4. [Scaling](#4-scaling)
 5. [Logging](#5-logging)
 6. [Monitoring](#6-monitoring)
-7. [Troubleshooting](#7-troubleshooting)
+7. [Alerting](#7-alerting)
+7. [Troubleshooting](#8-troubleshooting)
 
 ### 1. Introduction
 This runbook provides a comprehensive guide for deploying, maintaining, and operating the "Hello, World!" web server on an Azure Kubernetes Service cluster. It includes steps for deployment, scaling, monitoring, and troubleshooting.
@@ -50,7 +51,7 @@ The helm chart for the deployment of the web server can be found in the helm_cha
    helm create hello-world
    ```
 
-2. **Update the values.yaml in the created hello-world directory to update the necessary kubernetes resources needed:** 
+3. **Update the values.yaml in the created hello-world directory to update the necessary kubernetes resources needed:** 
    ```yaml
    image:
      repository: infrastructureascode/hello-world
@@ -77,7 +78,7 @@ The helm chart for the deployment of the web server can be found in the helm_cha
          secretName: hello-world-tls
    ```
 
-3. **Install the Helm Chart:**
+4. **Install the Helm Chart:**
    ```sh
    helm upgrade --install hello-world ./hello-world -n hello-world
    ```
@@ -121,6 +122,7 @@ The helm chart for the deployment of the web server can be found in the helm_cha
    ```sh
    kubectl apply -f letsencrypt-issuer.yaml -n hello-world
    ```
+
 ### 4. Scaling
 
 #### Horizontal Pod Autoscaler
@@ -170,25 +172,71 @@ Update the values.yaml in the hello-world helm chart to create the HPA resource:
 
 ### 6. Monitoring
 
-#### Prometheus and Grafana
-1. **Install Prometheus and Grafana:**
+#### Prometheus, Grafana, Kube State Metrics and Node Exporter
+1. Create a namespace called 'monitoring' for the monitoring resources:
    ```sh
-   helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-   helm repo add grafana https://grafana.github.io/helm-charts
-   helm repo update
-
-   helm install prometheus prometheus-community/kube-prometheus-stack
-   helm install grafana grafana/grafana
+   kubectl create namespace monitoring
    ```
 
-2. **Access Grafana Dashboard:**
-   - Get Grafana admin password:
-     ```sh
-     kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode
-     ```
-   - Access Grafana via the browser using the Kubernetes cluster IP and port.
+2. **Install Prometheus:** From the root of the repository, install all the manifest files in the kubernetes-prometheus directory:
+   ```sh
+   kubectl apply -f kubernetes-prometheus/
+   ```
 
-### 7. Troubleshooting
+3. **Install Grafana:** From the root of the repository, install all the manifest files in the kubernetes-grafana directory:
+   ```sh
+   kubectl apply -f kubernetes-grafana/
+   ```
+
+4. **Install Kube State Metrics:** From the root of the repository, install all the manifest files in the kube-state-metrics directory:
+   ```sh
+   kubectl apply -f kube-state-metrics/
+   ```
+
+5. **Install Node Exporter:** From the root of the repository, install all the manifest files in the kubernetes-node-exporter directory:
+   ```sh
+   kubectl apply -f kubernetes-node-exporter/
+   ```
+
+6. **Access Prometheus UI:**
+   Port-forward the Grafana service to access the Grafana Dashboard locally:
+   ```sh
+   kubectl port-forward -n monitoring service/kube-prometheus-stack-prometheus 9090:9090
+   ```
+   Access Prometheus UI via a browser using localhost:9090
+
+7. **Access Grafana Dashboard:**
+   Port-forward the Grafana service to access the Grafana Dashboard locally:
+   ```sh
+   kubectl port-forward -n monitoring service/grafana-monitoring 3000:3000
+   ```
+   Access Grafana via a browser using localhost:3000
+   The default admin username is 'admin' and the password is 'admin'. Change the password upon logging in. 
+
+8. **Get PromQL queries for Latency, Traffic, Errors, and Saturation:**
+   - Get the list of queries that exposes the metrics on the web server via a browser using https://helloworld.logeesti.co/metrics.
+The queries can be used on the Prometheus UI to work on the golden signals and calculate them in Prometheus.
+
+### 7. Alerting
+
+#### Blackbox Exporter and Alert Manager
+
+1. **Install Blackbox Exporter:** 
+   ```sh
+   helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+   helm repo update
+   helm install prometheus prometheus-community/prometheus-blackbox-exporter -n monitoring
+   ```
+
+2. **Install Alert Manager:** From the root of the repository, install all the manifest files in the kubernetes-alert-manager directory:
+   ```sh
+   kubectl apply -f kubernetes-alert-manager/
+   ```
+   The prometheus.yml in the Prometheus installation is configured to get the health status of the web server via its health endpoint (https://helloworld.logeesti.co/health).
+
+   The Alert Manager setup is configured to send a message to a Slack channel whenever the webserver is down every five minutes till the web server is back up. Once it is back up, a message is sent to the Slack channel stating that the issue has been resolved.
+
+### 8. Troubleshooting
 
 #### Common Issues
 1. **Ingress Not Working:**
