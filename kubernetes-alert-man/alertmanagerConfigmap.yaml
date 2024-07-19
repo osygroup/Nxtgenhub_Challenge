@@ -1,0 +1,29 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: alertmanager-config
+  namespace: monitoring
+data:
+  config.yml: |-
+    global:
+      resolve_timeout: 1m
+      slack_api_url: 'https://hooks.slack.com/services/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'
+
+    route:
+      receiver: 'slack-notifications'
+      group_by: [...]
+      group_wait: 10s
+      group_interval: 30s
+      repeat_interval: 4m  #This enables the alerts to be sent every 4-5mins till the endpoint gets a 200
+
+    receivers:
+    - name: 'slack-notifications'
+      slack_configs:
+      - channel: '#devops-alert'
+        send_resolved: true
+        icon_url: https://avatars3.githubusercontent.com/u/3380462
+        title: '{{ template "custom_title" . }}'
+        text: '{{ template "custom_slack_message" . }}'
+
+    templates:
+    - /etc/alertmanager-templates/notifications.tmpl
