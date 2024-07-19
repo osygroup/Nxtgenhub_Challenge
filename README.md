@@ -214,8 +214,12 @@ Update the values.yaml in the hello-world helm chart to create the HPA resource:
    The default admin username is 'admin' and the password is 'admin'. Change the password upon logging in. 
 
 8. **Get PromQL queries for Latency, Traffic, Errors, and Saturation:**
-   - Get the list of queries that exposes the metrics on the web server via a browser using https://helloworld.logeesti.co/metrics.
-The queries can be used on the Prometheus UI to work on the golden signals and calculate them in Prometheus.
+   Get the list of queries that exposes the metrics on the web server via a browser using https://helloworld.logeesti.co/metrics.
+
+   The queries can be used on the Prometheus UI to work on the golden signals and calculate them in Prometheus.
+  
+   Grafana dashboards can also be set up to help display the important metrics. 
+
 
 ### 7. Alerting
 
@@ -234,7 +238,7 @@ The queries can be used on the Prometheus UI to work on the golden signals and c
    ```
    The prometheus.yml in the Prometheus installation is configured to get the health status of the web server via its health endpoint (https://helloworld.logeesti.co/health).
 
-   The Alert Manager setup is configured to send a message to a Slack channel whenever the webserver is down every five minutes till the web server is back up. Once it is back up, a message is sent to the Slack channel stating that the issue has been resolved.
+   The Alert Manager setup is configured to send a message to a Slack channel whenever the webserver is down every five minutes until the web server is back up. Once it is back up, a message is sent to the Slack channel stating that the issue has been resolved.
 
 ### 8. Troubleshooting
 
@@ -272,9 +276,13 @@ The queries can be used on the Prometheus UI to work on the golden signals and c
    ```sh
    kubectl get svc
    ```
+4. Getting the below message in the Slack Support channel?
+   ```sh
+   [FIRING:1] Endpoint Down @ https://helloworld.logeestic.co/health
+   This service has been down for more than 5 minutes.
+   ```
+   Please contact the DevOps Team immediately.  
 
-#### Contact Support
-- If issues persist, contact the DevOps Team.
 
 ---
 
