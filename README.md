@@ -2,6 +2,8 @@
 
 ## Runbook for "Hello, World!" Web Server on Kubernetes (AKS)
 
+![](https://github.com/osygroup/Images/blob/main/hello_world.jpg)
+
 ### Table of Contents
 1. [Introduction](#1-introduction)
 2. [Prerequisites](#2-prerequisites)
