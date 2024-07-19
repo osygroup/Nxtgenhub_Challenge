@@ -7,7 +7,7 @@ data:
   config.yml: |-
     global:
       resolve_timeout: 1m
-      slack_api_url: 'https://hooks.slack.com/services/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'
+      slack_api_url: 'https://hooks.slack.com/services/.......................'
 
     route:
       receiver: 'slack-notifications'
