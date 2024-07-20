@@ -30,7 +30,7 @@ This runbook provides a comprehensive guide for deploying, maintaining, and oper
 1. **Install Nginx Ingress Controller** 
 Use the ingress-nginx helm chart in the helm_charts directory to install the Nginx Ingress controller:
    ```sh
-   helm upgrade --install ingress-nginx ingress-nginx \
+   helm upgrade --install ingress-nginx helm_charts/ingress-nginx \
    --namespace ingress-nginx --create-namespace
    ```
 2. ** Get the External IP address of the Ingress controller**
@@ -48,7 +48,7 @@ The external IP that is allocated to the ingress-controller is the IP to which a
    ```
 
 2. **Create a Helm Chart for the Web Server:**
-The helm chart for the deployment of the web server can be found in the helm_charts directory, but for understanding of how to create and use helm charts:
+The helm chart for the deployment of the web server can be found in the helm_charts directory, but for the understanding of how to create and use helm charts:
    ```sh
    helm create hello-world
    ```
@@ -82,7 +82,7 @@ The helm chart for the deployment of the web server can be found in the helm_cha
 
 4. **Install the Helm Chart:**
    ```sh
-   helm upgrade --install hello-world ./hello-world -n hello-world
+   helm upgrade --install hello-world hello-world -n hello-world
    ```
    At this point, the web server is now accessible over a browser with the url http://helloworld.logeesti.co, but the web server is unsecured due to a lack of an SSL certificate. The next step secures the web server with an SSL certificate (HTTPS). 
 
